@@ -1,98 +1,330 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import {
+  Bell,
+  BotMessageSquare,
+  CircleChevronRight,
+  CircleUser,
+  LibraryBig,
+  Search,
+  Tickets,
+  Users
+} from 'lucide-react-native';
+import React from 'react';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
+import { useRouter } from 'expo-router';
 
 export default function HomeScreen() {
+  const router = useRouter();
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+        {/* ===== Header ===== */}
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingHorizontal: 16,
+          paddingVertical: 12
+        }}>
+          <Image
+            source={require('../../assets/images/427ddce65ac99bbd5b9bfa58e9a4aa8169d39db7.png')}
+            style={{ width: 150, height: 30, resizeMode: 'contain' }}
+          />
+
+          <View style={{ flexDirection: 'row', gap: 16 }}>
+            <TouchableOpacity><Bell size={22} /></TouchableOpacity>
+            <TouchableOpacity><Search size={22} /></TouchableOpacity>
+            <TouchableOpacity onPress={() => router.push('/user')}><CircleUser size={24} /></TouchableOpacity>
+          </View>
+        </View>  
+
+        {/* ===== Banner ===== */}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={{ flexDirection: 'row', gap: 16, paddingHorizontal: 16, marginVertical: 16 }}>
+            <Image
+              source={require('../../assets/images/digital 1.jpg')}
+              style={{ width: 360, height: 220, borderRadius: 16 }}
+            />
+            <Image
+              source={require('../../assets/images/digital 2.jpg')}
+              style={{ width: 360, height: 220, borderRadius: 16 }}
+            />
+            <Image
+              source={require('../../assets/images/digital3.avif')}
+              style={{ width: 360, height: 220, borderRadius: 16 }}
+            />
+          </View>
+        </ScrollView>
+
+        {/* ===== Menu ===== */}
+        <View style={{
+          paddingHorizontal: 16,
+          marginTop: 8,
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          gap: 12
+        }}>
+          <MenuCard icon={<LibraryBig size={20} />} title="Modul Akademi" />
+          <MenuCard icon={<Users size={20} />} title="Community" />
+          <MenuCard icon={<Tickets size={20} />} title="Event Hackton" />
+          <MenuCard icon={<BotMessageSquare size={20} />} title="Chat CS" />
+        </View>
+
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 32,
+          marginHorizontal: 16,
+          marginBottom: 16
+        }}>
+          <Text style={{ fontSize: 20, fontWeight: '600', color: '#000' }}>
+            Mau belajar apa ni
+          </Text>
+          <CircleChevronRight size={20} color="#000" />
+        </View>
+
+        {/* ===== Course Grid ===== */}
+        <View style={{
+          paddingHorizontal: 16,
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          gap: 16,
+          marginBottom: 32
+        }}>
+          <CourseCard
+            image={require('../../assets/images/desain 1.avif')}
+            title="Dasar Belajar Design"
+            subtitle="Belajar design dari dasar"
+          />
+          <CourseCard
+            image={require('../../assets/images/digital 2.jpg')}
+            title="Dasar Belajar MySql"
+            subtitle="Belajar database dasar dulu"
+          />
+          <CourseCard
+            image={require('../../assets/images/digital3.avif')}
+            title="Dasar Belajar Jaringan"
+            subtitle="Belajar jaringan bersama Pak Erin"
+          />
+          <CourseCard
+            image={require('../../assets/images/digital 1.jpg')}
+            title="Mahir menjadi frontend"
+            subtitle="Mau jadi FE belajar disini dulu"
+          />
+        </View>
+
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginTop: 32,
+          marginHorizontal: 16,
+          marginBottom: 16
+        }}>
+          <Text style={{ fontSize: 20, fontWeight: '600', color: '#000' }}>
+            Ikuti Event Terdekat
+          </Text>
+          <CircleChevronRight size={20} color="#000" />
+        </View>
+
+         <ScrollView horizontal showsHorizontalScrollIndicator={false} >
+   <View style={{flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:1, gap:10}}>
+      <TouchableOpacity style={{backgroundColor:'white', borderColor:'#d3d3d3', borderWidth: 1, paddingVertical:8, paddingHorizontal:16, borderRadius:10}}>
+        <Text style={{color:'#000000', fontWeight:'bold'}}>Hackton</Text>
+      </TouchableOpacity>
+       <TouchableOpacity style={{backgroundColor:'white', borderColor:'#d3d3d3', borderWidth: 1, paddingVertical:8, paddingHorizontal:16, borderRadius:10}}>
+        <Text style={{color:'#000000', fontWeight:'bold'}}>Design Web</Text>
+      </TouchableOpacity>
+       <TouchableOpacity style={{backgroundColor:'white', borderColor:'#d3d3d3', borderWidth: 1, paddingVertical:8, paddingHorizontal:16, borderRadius:10}}>
+        <Text style={{color:'#000000', fontWeight:'bold'}}>Workshop</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={{backgroundColor:'white', borderColor:'#d3d3d3', borderWidth: 1, paddingVertical:8, paddingHorizontal:16, borderRadius:10 }}>
+        <Text style={{color:'#000000', fontWeight:'bold'}}>Relax</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={{backgroundColor:'white', borderColor:'#d3d3d3', borderWidth: 1, paddingVertical:8, paddingHorizontal:16, borderRadius:10,}}>
+        <Text style={{color:'#000000', fontWeight:'bold'}}>Energize</Text>
+      </TouchableOpacity>
+      </View>
+      </ScrollView>
+
+       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={{ flexDirection: 'row', gap: 16, paddingHorizontal: 16, marginVertical: 16 }}>
+            <Image
+              source={require('../../assets/images/digital 1.jpg')}
+              style={{ width: 344, height: 150, borderRadius: 16 }}
+            />
+            <Image
+              source={require('../../assets/images/digital 2.jpg')}
+              style={{ width: 344, height: 150, borderRadius: 16 }}
+            />
+            <Image
+              source={require('../../assets/images/digital3.avif')}
+              style={{ width: 344, height: 150, borderRadius: 16 }}
+            />
+          </View>
+        </ScrollView>
+
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={{ flexDirection: 'row', gap: 10, paddingHorizontal: 16, marginVertical: 0 }}>
+            <Image
+              source={require('../../assets/images/desain 1.avif')}
+              style={{ width: 344, height: 150, borderRadius: 16 }}
+            />
+            <Image
+               source={require('../../assets/images/digital 1.jpg')}
+              style={{ width: 344, height: 150, borderRadius: 16 }}
+            />
+            <Image
+              source={require('../../assets/images/digital3.avif')}
+              style={{ width: 344, height: 150, borderRadius: 16 }}
+            />
+          </View>
+        </ScrollView>
+
+    <View style={{
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: 32,
+      marginHorizontal: 16,
+      marginBottom: 16
+    }}>
+      <Text style={{ fontSize: 20, fontWeight: '600', color: '#000' }}>
+        Program Unggulan
+      </Text>
+      <CircleChevronRight size={20} color="#000" />
+    </View>
+
+    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginVertical: 16 }}>
+      <View style={{ flexDirection: 'row', gap: 16, paddingHorizontal: 16 }}>
+        <ProgramCard
+          image={require('../../assets/images/1.png')}
+          title="Techxperience Career"
+        />
+
+        <ProgramCard
+          image={require('../../assets/images/2.png')}
+          title="Pengembangan Usaha"
+        />
+
+        <ProgramCard
+          image={require('../../assets/images/3.png')}
+          title="Beasiswa Kuliah"
+        />
+
+        <ProgramCard
+          image={require('../../assets/images/4.png')}
+          title="Techxperience Roadmap"
+        />
+      </View>
+    </ScrollView>
+  </ScrollView>
+
+</SafeAreaView>
+  )
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+
+function MenuCard({ icon, title }: { icon: React.ReactNode; title: string }) {
+  return (
+    <TouchableOpacity style={{
+      width: '48%',
+      backgroundColor: '#F1F3F5',
+      borderRadius: 18,
+      paddingVertical: 14,
+      paddingHorizontal: 16,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      borderLeftWidth: 5,
+      borderLeftColor: '#3B82F6'
+    }}>
+      {icon}
+      <Text
+        numberOfLines={1}
+        style={{
+          fontSize: 13,
+          fontWeight: '400',
+          color: '#333',
+          flex: 1
+        }}
+      >
+        {title}
+      </Text>
+    </TouchableOpacity>
+
+        
+
+  )
+}
+
+function CourseCard({ image, title, subtitle }: { image: any; title: string; subtitle: string }) {
+  return (
+    <View style={{
+      width: '47%',
+      backgroundColor: '#F1F3F5',
+      borderRadius: 16,
+      overflow: 'hidden'
+    }}>
+      <Image source={image} style={{ width: '100%', height: 110 }} />
+
+      <View style={{ padding: 10 }}>
+        <Text style={{ fontSize: 14, fontWeight: '500' }}>
+          {title}
+        </Text>
+        <Text style={{ fontSize: 12, color: '#555', marginTop: 4 }}>
+          {subtitle}
+        </Text>
+      </View>
+    </View>
+  )
+}
+
+function ProgramCard({ image, title }: { image: any; title: string }) {
+  return (
+    <TouchableOpacity style={{
+      width: 140,
+      height: 140,
+      backgroundColor: '#EEF2F6',
+      borderRadius: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 12,
+      borderRightWidth: 6,
+      borderRightColor: '#1D9BF0'
+    }}>
+
+      <Image
+        source={image}
+        style={{
+          width: 64,
+          height: 64,
+          marginBottom: 12,
+          resizeMode: 'contain'
+        }}
+      />
+
+      <Text
+        style={{
+          fontSize: 13,
+          color: '#333',
+          textAlign: 'center'
+        }}
+      >
+        {title}
+      </Text>
+
+    </TouchableOpacity>
+  )
+}
+
+
+  
